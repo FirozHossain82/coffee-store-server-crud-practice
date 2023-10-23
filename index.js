@@ -39,6 +39,14 @@ async function run() {
     })
 
 
+    // update the single product
+    app.get('/coffee/:id', async(req, res) =>{
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)}
+      const result = await coffeeCollection.findOne(query);
+      res.send(result);
+    })
+    
 
     // create post ---------POST---------Notun data create hobe database  e
     app.post('/coffee', async(req, res) =>{
