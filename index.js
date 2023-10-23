@@ -31,7 +31,7 @@ async function run() {
     const coffeeCollection = database.collection("coffee");
 
 
-    // Read the Data ----------GET -------------data create korar por read korar jonno ei code
+    // Read the Data ----------GET -------------data create korar por shobgulo read korar jonno ei code
     app.get('/coffee', async(req, res) =>{
       const cursor = coffeeCollection.find();
       const result = await cursor.toArray();
@@ -39,7 +39,7 @@ async function run() {
     })
 
 
-    // update the single product
+    //  the single product  khuje ber korar jonno
     app.get('/coffee/:id', async(req, res) =>{
       const id = req.params.id;
       const query = {_id: new ObjectId(id)}
@@ -47,6 +47,25 @@ async function run() {
       res.send(result);
     })
     
+    // UPDATE
+    app.put('/coffee/:id', async(req, res) =>{
+      const id = req.params.id;
+      const filter = {_id: new ObjectId(id)}
+      const options = {upsert: true};
+      const updatedCoffee = req.body;
+      const coffee = {
+        $set:{
+          name:updatedCoffee.name,
+          quantity:updatedCoffee.quantity,
+          supplier:updatedCoffee.supplier,
+          taste:updatedCoffee.taste,
+          category:updatedCoffee.category,
+          details:updatedCoffee.details,
+          photo:updatedCoffee.photo
+        }
+      }
+      const  result = await coffeeCollection.updateOne(filter, coffee,options)
+    })
 
     // create post ---------POST---------Notun data create hobe database  e
     app.post('/coffee', async(req, res) =>{
