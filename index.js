@@ -64,7 +64,8 @@ async function run() {
           photo:updatedCoffee.photo
         }
       }
-      const  result = await coffeeCollection.updateOne(filter, coffee,options)
+      const  result = await coffeeCollection.updateOne(filter, coffee,options);
+      res.send(result)
     })
 
     // create post ---------POST---------Notun data create hobe database  e
